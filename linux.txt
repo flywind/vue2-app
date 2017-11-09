@@ -1,0 +1,57 @@
+cat index.js  查看文件
+touch index.js 创建文件
+ls 查看所有文件
+vim index.js  进入编辑  按i进入编辑可粘贴按ESC退出编辑模式，保存退出:wq,不保存退出:q,强制不保存退出:q!
+netstat -tpln  查看服务端口是否存在
+
+以下是创建软链接
+ln -s /usr/local/node-v6.10.2-linux-x64/bin/node /usr/local/bin/node
+ln -s /usr/local/node-v6.10.2-linux-x64/bin/npm /usr/local/bin/npm
+
+cd ..  返回上一级
+
+下载远程文件
+wget https://nodejs.org/dist/v6.10.2/node-v6.10.2-linux-x64.tar.xz
+
+上传文件
+scp index.js
+
+解压文件
+tar xvf node-v6.10.2-linux-x64.tar.xz
+
+若您执行fdisk -l命令，发现没有 /dev/xvdb 标明您的云服务无数据盘，那么您无需进行挂载
+
+
+/*************npm命令**************/
+npm install express 安装模块
+npm install express@3.0.0 安装3.0.0版本的模块
+npm install express --save  安装模块的同时写入到package.json
+npm install express -g 全局安装模块
+
+npm list  查看所安装模块的版本号，如在node_modules下运行 nom list jquery
+
+ctrl+c结束命令
+
+设置npm安装程序时的默认位置
+npm config set prefix "D:\Program Files\nodejs\X64\node_global"
+
+ 设置npm安装程序时的缓存位置
+npm config set cache "D:\Program Files\nodejs\X64\node_cache"
+
+设置环境变量NODE_PATH 
+NODE_PATH = D:\Program Files\nodejs\X64\node_global\node_modules
+
+
+/*************项目有关的**************/
+安装信息
+/usr/local/nginx/nginx
+/root/nvm
+/root/nvm/versions/node/v4.8.4/bin/pm2
+/usr/local/mongodb/
+/root/nvm/versions/node/v4.8.4/
+/root/nvm/versions/node/v8.7.0/
+/root/nvm/versions/node/v4.8.4
+配置信息
+Nginx：/usr/local/nginx/nginx.conf 
+MongoDB：/var/mongodb/data 
+

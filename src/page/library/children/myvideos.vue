@@ -1,59 +1,42 @@
 <template>
 	<div class="container">
-		<tb-header fixed logo user>
-			<svg class="user" slot="right" @click="profile = !profile">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
+		<tb-header fixed goback title="My videos">
+			<svg class="more" slot="right" @click="popupVisible = true">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#more"></use>
 			</svg>
 		</tb-header>
-		<mt-popup class="profile-popup" v-model="profile" position="bottom" :modal="false">
-			<header>
-				<svg class="close" @click="profile = false">
+		<mt-popup v-model="popupVisible" position="bottom" class="my-videos-actionsheet">
+			<div>
+				<svg>
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tv"></use>
+				</svg>
+				<div class="text">Watch on TV</div>
+			</div>
+			<div>
+				<svg>
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#help"></use>
+				</svg>
+				<div class="text">Help & feedback</div>
+			</div>
+			<div class="close" @click="popupVisible = false">
+				<svg>
 					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
 				</svg>
-				<h1>Account</h1>
-			</header>
-			<section class="content">
-				<div>
-					<svg class="account">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#account"></use>
-					</svg>
-					<span>My channel</span>
-				</div>
-				<div>
-					<svg class="switchaccount">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#switchaccount"></use>
-					</svg>
-					<span>Switch account</span>
-				</div>
-				<div>
-					<svg class="settings">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#settings"></use>
-					</svg>
-					<span>Settings</span>
-				</div>
-				<div>
-					<svg class="lock">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use>
-					</svg>
-					<span>Terms & privacy policy</span>
-				</div>
-				<div>
-					<svg class="help">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#help"></use>
-					</svg>
-					<span>Help & feedback</span>
-				</div>
-			</section>
+				<div class="text">Cancel</div>
+			</div>
 		</mt-popup>
-		<section class="main" ref="wrapper" :style="{height:wrapperHeight + 'px'}" v-if="list.length">
-			<ul class="video-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
+		<div class="my-videos-sort">
+			<span>DATE ADDEN(NEWEST)</span>
+			<svg>
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#downarrow"></use>
+			</svg>
+		</div>
+		<section class="my-videos-main" ref="wrapper" :style="{height:wrapperHeight + 'px'}" v-if="list.length">
+			<ul class="video-middle-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
 				<li v-for="(item,index) in list" :key="index">
-					<div class="img-box"><img :src="item.img"/></div>
+					<img :src="item.img"/>
 					<!--<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509360018050&di=721a031a1a19a9ce603b9adaae327dac&imgtype=0&src=http%3A%2F%2Fa.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F2934349b033b5bb5d1d220343fd3d539b700bcf6.jpg" />-->
 					<section class="video-info-box">
-						<svg class="user">
-							<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
-						</svg>
 						<section class="info">
 							<!--{{item.productprice}}-->
 							<div class="title">{{subTitle(item.title)}}</div>
@@ -74,23 +57,24 @@
 				<mt-spinner type="triple-bounce" color="#3a71ea" class="load-img"></mt-spinner>
 			</p>
 		</section>
-		<img class="home-video-none" ref="wrapper" src="../../assets/videolist.svg" v-else/>
+		<img class="video-none" ref="wrapper" src="../../../assets/videolist.svg" v-else/>
 		<tb-tabbar fixed></tb-tabbar>
     </div>
 </template>
 
 <script type="text/babel">
-	import tbHeader from '../../components/header';
-	import tbTabbar from '../../components/tabbar';
+	import tbHeader from '../../../components/header';
+	import tbTabbar from '../../../components/tabbar';
 	export default{
 		data(){
 			return {
+				popupVisible:false,
 				wrapperHeight:0,
 				list: [],
 				loading:false,
 				page: 1,
 				pagesize: 20,
-				profile: false,
+				actions:[]
 			}
 		},
 		mounted(){
@@ -98,10 +82,11 @@
 			setTimeout(() => {
 				this.getVideos();
 			},1000)
+			
 		},
 		components:{
 			tbHeader,
-			tbTabbar
+			tbTabbar,
 		},
 		computed:{
 			
@@ -146,62 +131,45 @@
 </script>
 
 <style lang="scss">
-	@import "../../assets/mixin";
+	@import "../../../assets/mixin";
 	.container{
 		display:flex;
 		flex-direction: column;
-		
-		
-		.main{
-			margin: 1.9rem 0;
+		.my-videos-main{
+			margin: 0 0 1.9rem;
 			overflow: scroll;
-			.video-list{
+			.video-middle-list{
 				li{
 					background-color: #fff;
 					display: flex;
-					flex-direction: column;
-					border-bottom: .025rem solid #ebebeb;
-					.img-box{
-						display:flex;
-						align-items:center;
-						justify-content:center;
-						margin-top:.6rem;
-						img{
-							@include wh(14.5rem,8.16rem);
-						}
+					img{
+						@include wh(6.5rem,3.672rem);
+						padding: .7rem .7rem 0 .7rem;
 					}
 					.video-info-box{
 						display: flex;
+						justify-content: flex-start;
 						align-items: flex-start;
-						position: relative;
-						margin-bottom: 1rem;
-						margin-top: .2rem;
-						svg.user{
-							@include wh(2rem,2rem);
-							margin-left: .6rem;
-						}
+						height:3.672rem;
+						margin-top:.7rem;
+						flex:1;
 						.info{
 							flex: 1;
-							display: flex;
-							flex-direction: column;
-							margin-left: .3rem;
 							.title{
-								@include sc(.73rem,$fontcolor);
-								margin-right: 1rem;
+								@include sc(.63rem,#212121);
+								line-height: .85rem;
+								overflow: hidden;
+								text-overflow: ellipsis;
 							}
 							.desc{
-								@include sc(.5rem,$subfontcolor);
+								@include sc(.5rem,#757575);
 							}
 						}
-						svg.more{
-							position: absolute;
-							@include wh(.9rem,.9rem);
-							fill: $subfontcolor;
-							right: .3rem;
-							top: .6rem;
+						.more{
+							@include wh(1rem,1rem);
+							fill:#666;
 						}
 					}
-					
 				}
 			}
 			.video-loading{
@@ -213,10 +181,56 @@
 			}
 			
 		}
-		.home-video-none{
-			margin: 1.9rem 0;
+		.video-none{
+			margin: 0 0 1.9rem;
 			overflow: scroll;
 		}
+		
+		.my-videos-actionsheet{
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			div{
+				display: flex;
+				justify-content: flex-start;
+				height: 2.2rem;
+				align-items: center;
+				svg{
+					@include wh(.9rem,.9rem);
+					fill: $c6;
+					margin-left: .5rem;
+				}
+				.text{
+					margin-left: 1rem;
+					flex: 1;
+					@include sc(.6rem,$fontcolor);
+				}
+			}
+			div.close{
+				height: 2.5rem;
+				border-top: .025rem solid $bc;
+			}
+		}
+		.my-videos-sort{
+			display: flex;
+			align-items: center;
+			margin-top: 1.9rem;
+			justify-content: flex-start;
+			height: 1.9rem;
+			border-bottom: .025rem solid $bc;
+			span{
+				@include sc(.5rem,$subfontcolor);
+				margin-left: .6rem;
+				font-weight: bold;
+			}
+			svg{
+				@include wh(.7rem,.7rem);
+				fill:$subfontcolor;
+				margin-left: .1rem;
+			}
+			
+		}
+		
 		
 	}
 	

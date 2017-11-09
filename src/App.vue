@@ -1,11 +1,19 @@
-<template><router-view/></template>
+<template>
+	<div>
+		<router-view/>
+		<tube-icon/>
+	</div>
+</template>
 
 <script>
-export default {
-  name: 'app'
-}
+	import tubeIcon from './components/tubeicon'
+	export default {
+	  name: 'app',
+	  components:{tubeIcon}
+	}
 </script>
 
 <style lang="scss">
-	@import './assets/css/common';
+	@import './assets/common';
+	@import './assets/animate';
 </style>

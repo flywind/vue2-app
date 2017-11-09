@@ -1,51 +1,49 @@
 <template>
 	<div class="container">
-		<tb-header fixed logo user>
-			<svg class="user" slot="right" @click="profile = !profile">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
-			</svg>
-		</tb-header>
-		<mt-popup class="profile-popup" v-model="profile" position="bottom" :modal="false">
-			<header>
-				<svg class="close" @click="profile = false">
-					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-				</svg>
-				<h1>Account</h1>
-			</header>
-			<section class="content">
+		<tb-header fixed logo user></tb-header>
+		<section class="trending-icons-list">
+			<section>
 				<div>
-					<svg class="account">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#account"></use>
+					<svg class="music">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#music"></use>
 					</svg>
-					<span>My channel</span>
 				</div>
-				<div>
-					<svg class="switchaccount">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#switchaccount"></use>
-					</svg>
-					<span>Switch account</span>
-				</div>
-				<div>
-					<svg class="settings">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#settings"></use>
-					</svg>
-					<span>Settings</span>
-				</div>
-				<div>
-					<svg class="lock">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use>
-					</svg>
-					<span>Terms & privacy policy</span>
-				</div>
-				<div>
-					<svg class="help">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#help"></use>
-					</svg>
-					<span>Help & feedback</span>
-				</div>
+				<span>Music</span>
 			</section>
-		</mt-popup>
-		<section class="main" ref="wrapper" :style="{height:wrapperHeight + 'px'}" v-if="list.length">
+			<section>
+				<div>
+					<svg class="live">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#live"></use>
+					</svg>
+				</div>
+				<span>Live</span>
+			</section>
+			<section>
+				<div>
+					<svg class="gaming">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#gaming"></use>
+					</svg>
+				</div>
+				<span>Gaming</span>
+			</section>
+			<section>
+				<div>
+					<svg class="news">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#news"></use>
+					</svg>
+				</div>
+				<span>News</span>
+			</section>
+			<section>
+				<div>
+					<svg class="astros">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#astros"></use>
+					</svg>
+				</div>
+				<span>Astros</span>
+			</section>
+		</section>
+		<section class="trending-main" ref="wrapper" :style="{height:wrapperHeight + 'px'}" v-if="list.length">
 			<ul class="video-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
 				<li v-for="(item,index) in list" :key="index">
 					<div class="img-box"><img :src="item.img"/></div>
@@ -74,7 +72,7 @@
 				<mt-spinner type="triple-bounce" color="#3a71ea" class="load-img"></mt-spinner>
 			</p>
 		</section>
-		<img class="home-video-none" ref="wrapper" src="../../assets/videolist.svg" v-else/>
+		<img class="trending-video-none" ref="wrapper" src="../../assets/videolist.svg" v-else/>
 		<tb-tabbar fixed></tb-tabbar>
     </div>
 </template>
@@ -90,7 +88,7 @@
 				loading:false,
 				page: 1,
 				pagesize: 20,
-				profile: false,
+				title: 'ELLEN S SHOW ME MORE SHOW Niall Horan Surprises His Fans Horan Surprises His Fans'
 			}
 		},
 		mounted(){
@@ -151,10 +149,45 @@
 		display:flex;
 		flex-direction: column;
 		
-		
-		.main{
-			margin: 1.9rem 0;
+		.trending-icons-list{
+			display: flex;
+			align-items: center;
+			margin-top:1.9rem;
+			height:4.8rem;
+			border-bottom:.025rem solid $bc;
+			section{
+				display:flex;
+				align-items:center;
+				flex-direction:column;
+				align-items:center;
+				justify-content:center;
+				margin-left:.73rem;
+				div{
+					@include wh(2.3rem,2.3rem);
+					border-radius:50%;
+					background-color:#282828;
+					display:flex;
+					align-items:center;
+					justify-content:center;
+					svg{
+						@include wh(1.4rem,1.4rem);
+					}
+					svg.music,svg.live,svg.gaming{
+						fill:#fff;
+					}
+				}
+				span{
+					@include sc(.6rem,$subfontcolor);
+					text-align:center;
+					transform:scale(.8);
+				}
+			}
+			
+		}
+		.trending-main{
+			margin: 0 0 1.9rem 0;
 			overflow: scroll;
+			flex: 1;
 			.video-list{
 				li{
 					background-color: #fff;
@@ -201,7 +234,6 @@
 							top: .6rem;
 						}
 					}
-					
 				}
 			}
 			.video-loading{
@@ -213,8 +245,8 @@
 			}
 			
 		}
-		.home-video-none{
-			margin: 1.9rem 0;
+		.trending-video-none{
+			margin: 0 0 1.9rem 0;
 			overflow: scroll;
 		}
 		

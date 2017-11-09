@@ -8,6 +8,7 @@ import FastClick from 'fastclick'
 import store from './store'
 import './config/rem'
 import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 
 Vue.config.productionTip = false
 

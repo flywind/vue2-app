@@ -1,0 +1,106 @@
+walkthrough
+
+pwd 命令是用于显示当前的目录
+
+img-responsive
+
+
+git config --global user.name "flywind"
+git config --global user.email "38204053@qq.com"
+
+
+cd d:
+cd gits
+mkdir tapestry-widgets
+pwd /d/gits/tapestry-widgets
+
+
+1. 通过命令 git init 把这个目录变成git可以管理的仓库
+git commit -m "提交文件注释"
+git status来查看下结果
+cat README.md查看整个文件
+git diff README.md  比较文件历史
+git log 查看修改日志
+git log -pretty=oneline查看最近日志
+git reset --hard HEAD^ 回退到上一个版本  git reset --hard HEAD^^ 上上一个
+git reflog查看版本号 git reset --hard 版本号
+git checkout -- README.md把未提交到缓存区(没有执行git add命令的)的文件内容撤销 
+git rm a.txt删除文件
+ssh-keygen -t rsa -c "38204053@qq.com" 创建ssh-key
+ssh-keygen -t rsa -b 4096 -C "38204053@qq.com"
+ls -al ~/.ssh  检查是否有ssh-key
+
+
+
+git init
+git add README.md
+git commit -m "add file"
+git status
+
+把一个已有的本地仓库与gitHub关联
+git remote add origin https://github.com/flywind/tapestry-widgets.git
+git remote add origin https://github.com/flywind/tapestry-5.4-api.git
+git remote add origin https://github.com/flywind/nodecms.git
+git remote add origin https://github.com/flywind/vue2-app.git
+
+git remote add origin https://github.com/flywind/tapestry5-cms.git
+
+$ git clone https://github.com/flywind/nodecms.git
+
+把本地仓库分之master内容推送到元仓库
+git push -u origin master
+git push origin master
+
+git pull命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。
+比如，取回origin主机的next分支，与本地的master分支合并，需要写成下面这样。
+$ git pull origin next:master
+如果远程分支是与当前分支合并，则冒号后面的部分可以省略。
+$ git pull origin next
+上面命令表示，取回origin/next分支，再与当前分支合并。实质上，这等同于先做git fetch，再做git merge。
+$ git fetch origin
+$ git merge origin/next
+
+cd D:\gits\tapestry-widgets
+git add src
+git commit -m "Delete FDialog component"
+git commit -m 'Update PostsDetial' -a
+
+git checkout -b dev 创建并却换到分支dev
+git branch查看当前分支
+git checkout dev
+git merge dev  在master分支上合并dev分支
+查看分支：git branch
+
+   创建分支：git branch name
+
+   切换分支：git checkout name
+
+创建+切换分支：git checkout –b name
+
+合并某分支到当前分支：git merge name
+
+删除分支：git branch –d name
+git branch dev 查看分支dev
+
+
+
+
+
+
+设置git的user name和email：
+
+$ git config --global user.name "flywind"
+
+$ git config --global user.email "38204053@qq.com"
+
+查看git配置
+
+$git config --lis
+
+二、生成SSH密钥过程：
+1.查看是否已经有了ssh密钥：cd ~/.ssh
+如果没有密钥则不会有此文件夹，有则备份删除
+2.生存密钥：
+
+  $ ssh-keygen -t rsa -C "38204053@qq.com"
+  按3个回车，密码为空这里一般不使用密钥。

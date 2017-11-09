@@ -1,0 +1,90 @@
+# 全局安装 vue-cli
+$ npm install --global vue-cli
+# 创建一个基于 webpack 模板的新项目
+$ vue init webpack my-project
+# 安装依赖，走你
+$ cd my-project
+$ npm install
+$ npm run dev
+
+npm config set cache "D:\nodejs\node_cache"
+npm config set prefix "D:\nodejs\node_global"
+C:\Users\dell\AppData\Roaming\npm
+
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+npm config set registry http://registry.cnpmjs.org
+
+强制用http连接，而不是https
+npm config set strict-ssl false
+
+npm install ./selenium-server-3.6.0.tgz
+npm install https://npm.taobao.org/mirrors/selenium/3.6/selenium-server-3.6.0.zip
+m install https://github.com/indexzero/forever/tarball/v0.5.6
+
+D:\nodejs;D:\nodejs\node_global\node_modules
+
+Ctrl+c终止程序
+
+npm i config-lite connect-flash connect-mongo ejs express express-formidable express-session marked moment mongolass objectid-to-timestamp sha1 winston express-winston --save
+
+开发模式
+supervisor --harmony index
+产品模式启动
+NODE_ENV=production supervisor --harmony index
+
+http://npmjs.com(npm 官网)
+http://node-modules.com
+https://npms.io
+https://nodejsmodules.org
+
+
+快速创建express项目
+express -h
+express myapp(项目名称)
+
+安装express
+npm install(安装所有依赖包)
+npm install express
+npm install serve-favicon
+npm install morgan
+npm install cookie-parser
+npm install body-parser
+
+DEBUG=myapp npm start  启动项目(MacOS 或 Linux 平台)
+set DEBUG=myapp & npm start启动项目(Windows  平台)
+
+
+压缩平台:
+grunt-contrib-jshint（js语法检查）、
+grunt-contrib-concat（js合并）、
+grunt-contrib-uglify（采用UglifyJS压缩js）、
+grunt-contrib-cssmin（Css压缩合并）、
+grunt-htmlhint（html语法验查）
+
+插件安装
+npm install -g grunt-cli
+npm install -g grunt
+
+npm install grunt-cli
+npm install grunt
+
+安装：uglify
+npm install grunt-contrib-uglify
+
+安装concat
+npm install grunt-contrib-concat
+
+安装：cssmin
+npm install grunt-contrib-cssmin
+插件安装完成后，查看根目录，会发现node_modules目录，包含了相应的插件目录。
+
+命令行执行grunt任务:进入到项目根目录，敲：
+grunt
+
+就会按Gruntfile配置的文件进行压缩合并。
+
+也可以单独执行，例执行js压缩命令：
+grunt uglify
+
+css压缩命令
+grunt cssmin
