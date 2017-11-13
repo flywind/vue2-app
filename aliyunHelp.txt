@@ -1,0 +1,96 @@
+﻿目录	描述
+/bin	放置的是在单用户维护模式下还能够操作的命令，可以被root和一般账号所使用，如cat,cp,bash,mv,chmod等。
+/boot	放置开机时会使用到的文件，包括Linux内核文件以及开机所需配置文件。
+/dev	任何设备与接口设备(Linux都以文件的形式存在于这个目录中)。
+/etc	系统主要的配置文件(可编辑文本文件)都存放在这个目录。
+/home	系统默认的用户主文件夹(把它当作Windows的我的文档吧)。
+/lib	函数库目录。放置开机时用到的函数库以及/bin或/sbin目录下命令调用的函数库。
+/lib64	/lib的64位版本。
+/media	可删除的设备，包括光驱、软盘等。
+/mnt	临时挂载的设备，如U盘、CD-ROM等。
+/opt	第三方软件(可选)安装目录，比如KDE等。
+/root	系统管理员的主文件夹。
+/sbin	开机过程需要的命令，普通用户不能执行。
+/srv	网络服务的数据目录。如WWW的网页数据可以放在/srv/www/目录。
+/tmp	此目录任何人可以访问，临时目录，一般重启时全部清空。
+/lost+found	使用标准的ext2/ext3文件系统文件格式会产生的一个目录。当文件系统发成错误，将一些丢失的文件碎片放置到这个目录里面。
+/proc	这个目录是一个虚拟文件系统，它放置的数据代表内存中的数据，所以本身不占用硬盘。
+/sys	和/proc类似，也是一个虚拟文件系统，主要记录内核相关信息。
+/var	系统运行时变动和产生的文件，包括缓存、日志等。
+/selinux	selinux相关目录。
+/run	开机时一些底层的程序会向/var/run目录写入pid等，但整个文件系统尚未挂载完成，只有根分区已挂载，如果/var处于单独的分区就会产生错误，所以将run移动到/。
+/usr	默认软件都在这个目录，有点类似Windows的”C:\Windows”和”C:\Program files\”的综合体。
+vmlinuz@	linux内核。
+initrd.img	用于加载特别的配置和服务(如当内核不支持特别的硬件时)，可以通过定制自己的initrd.img可以将其加载为标准的文件系统。
+  详细的目录配置标准，大家可以阅读一下FHS(http://www.pathname.com/fhs/) 。现在让我们看看我们的云服务器里面在运行些什么东西吧。打入以下命令：
+
+  ps aux 或者ps aux|more
+
+  这个命令可以得到所有正在运行程序的快照，如果需要得到动态进程信息那么使用top命令。
+
+
+  我们简单认识一下每个进程：
+
+名称	类型	说明
+init	系统	内核启动的第一个用户级进程，一般位于/sbin/init。
+kthreadd	系统	管理调度其他的内核线程，在内核初始化时创建。
+ksofttirqd/n	系统	软中断处理线程，一个核心对一个一个。
+kworker	系统	工作队列线程。
+migration	系统	进程迁徙。
+watchdog	系统	用于监视系统的运行。
+cpuset	系统	分配CPU和内存节点(我也不是很理解)。
+khelper	系统	用于从内核空间调用用户空间应用程序的内核模块。
+kdevtmpfs	系统	devtmpfs文件系统线程。
+netns	系统	网络虚拟化。
+xenwatch	xen	虚拟化xen管理和配置工具。
+xenbus	xen	虚拟化总线。
+sync_supers	系统	内核线程，用于同步操作系统当前挂载的各个文件系统的超级块数据。
+bdi-default	系统	和flush-x:y配合完成bdi设备(如硬盘、USB等)的同步(为了提高性能系统对bdi设备进行了缓冲，读写的数据会临时存储在内存，需要一定的时机同步到bdi设备)。
+flush-202:0	系统	见bdi-default。
+kintegrity	系统	内核完整性检查。
+kblockd	系统	管理磁盘块读写。
+khungtaskd	系统	死锁检查。
+ksmd	系统	内核中的守护进程，定期执行页面扫描。
+khugepaged	系统	huge pages相关，它会一直扫描所有进程占用的内存，在可能的情况下将4K交换为Huge Pages。
+fsnotify_mark	系统	fsnotify(文件系统变化通知)相关进程。
+crypto	系统	提供加解密相关功能。
+khubd	系统	守护进程，用于检查USB port的事件通知和USB core，作相应处理。
+ata_sff	系统	ata硬盘。
+scsi_eh_n	系统	scsi设备。
+jdb2/xvda1-8	系统	journaling block device 2，ext4文件系统日志服务。
+ext4-dio-unwrite	系统	ext4文件系统相关。
+udevd	系统	根据一定的规则在dev目录下生成设备文件，即插即用的重要环节。
+kpsmoused	系统	内核鼠标支持模块。
+/sbin/rpcbind	系统	RPC服务，在nfs共享时通知客户端服务器的nfs端口号。
+/sbin/rpc.statd	系统	协同NFS服务工作。
+rpcoid	系统	连接到对方NFS上进行io操作的服务进程。
+nfsoid	系统	NFS相关进程。
+/usr/sbin/rpc.idmapd	系统	NFS v4新增加的模块，用于保持username-uid的映射。
+/usr/sbin/rsyslogd	系统	增强版syslog，用于替代syslog。
+/usr/sbin/atd	系统	at（一次性定时计划任务）命令服务进程。
+/usr/sbin/dbus-daemon	系统	messagebus守护进程，提供应用程序一对一通讯。
+/usr/sbin/nscd	系统	缓存进程，为NIS和LDAP等服务提供更快的验证。
+/usr/sbin/cron	系统	定时计划任务服务进程。
+/usr/sbin/ntpd	系统	时间同步服务。
+/usr/sbin/sshd	系统	ssh服务,我们用ssh客户端连接的就是它。
+/sbin/getty	系统	用于打开tty并提示用户登录，然后将用户名传递给login。
+/usr/local/aegis/aegis_update/AliYunDunUpdate	阿里云	阿里云云盾升级程序。
+/usr/sbin/gshelld	阿里云	阿里云服务，对服务器通用的功能进行配置和修复。
+/usr/local/aegis/aegis_client/aegis_00_77 /AliYunDun	阿里云	阿里云云盾。
+/usr/local/aegis/alihids/AliHids	阿里云	阿里云云监控。
+  进程已经介绍完了，让我们查看一下系统的硬件，确认一下我们购买的信息是否正确，我们需要确认3个信息，CPU、内存和硬盘大小。
+
+CPU：
+cpu cores : 1 这一行表示的就是cpu的核心数量。
+
+内存：
+total列的数据就是我们总的物理内存，如图笔者购买的是1G。
+
+硬盘大小（一般阿里云我们有一个系统硬盘和一个数据硬盘）：
+
+
+
+可以看到我们有2个硬盘：xvda 20G（系统盘）和xvdb 10G（数据盘）。
+
+服务器的基本信息我们就介绍到这里，下一节我们将介绍一下系统的基本配置，包括数据盘的初始化、防火墙配置、FTP配置。待续。。。
+
