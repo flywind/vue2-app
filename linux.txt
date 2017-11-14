@@ -24,6 +24,28 @@ ln file1 lnk1 创建一个指向文件或目录的物理链接
 touch -t 0712250000 file1 修改一个文件或目录的时间戳 - (YYMMDDhhmm)
 vim index.js  进入编辑  按i进入编辑可粘贴按ESC退出编辑模式，保存退出:wq,不保存退出:q,强制不保存退出:q!
 netstat -tpln  查看服务端口是否存在
+netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息
+
+查看当前tcp监听端口
+netstat -tl
+
+查看当前tcp监听端口, 需要显示监听的程序名,当不清楚mysql的监听端口时比较好用
+netstat -tlp
+
+只查看mysql的监听端口,当前启动的mysql端口为34006,明确知道mysql监听端口时使用
+netstat -tl | grep 3306
+
+23425是当前mysql的PID
+netstat -tap | grep 34006 | grep 23425
+
+检查端口80被那个进程占用
+netstat -ano | findstr  "80"
+杀掉占用80端口进程75236
+tasklist | findstr "7536"
+
+通过iptables将80端口跳转到8080端口
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
+
 
 以下是创建软链接
 ln -s /usr/local/node-v6.10.2-linux-x64/bin/node /usr/local/bin/node
@@ -63,19 +85,7 @@ npm config set cache "D:\Program Files\nodejs\X64\node_cache"
 设置环境变量NODE_PATH 
 NODE_PATH = D:\Program Files\nodejs\X64\node_global\node_modules
 
-netstat命令是一个监控TCP/IP网络的非常有用的工具，它可以显示路由表、实际的网络连接以及每一个网络接口设备的状态信息
 
-查看当前tcp监听端口
-netstat -tl
-
-查看当前tcp监听端口, 需要显示监听的程序名,当不清楚mysql的监听端口时比较好用
-netstat -tlp
-
-只查看mysql的监听端口,当前启动的mysql端口为34006,明确知道mysql监听端口时使用
-netstat -tl | grep 3306
-
-23425是当前mysql的PID
-netstat -tap | grep 34006 | grep 23425
 
 
 /*************项目有关的**************/
@@ -211,6 +221,10 @@ https://help.aliyun.com/knowledge_detail/41104.html#端口监听
 
 k58
 
+tomcat启动和关闭
+service  tomcat  start
+service  tomcat  stop
+
 启动mysqld 服务，以及tomcat
 
 -- 5. 启动mysqld 服务，以及tomcat 
@@ -244,6 +258,8 @@ touch /var/lock/subsys/local
  
 
 可以看到, 我们只增加了最后一行。意思是在Linux启动完成后，加载其他初始脚本完毕之后, 执行启动Tomcat的命令.
+
+
 
 
 
