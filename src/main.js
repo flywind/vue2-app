@@ -3,7 +3,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import routes from './router'
+import App from './App'
+import router from './router'
 import FastClick from 'fastclick'
 import store from './store'
 import './config/rem'
@@ -18,17 +19,14 @@ if ('addEventListener' in document) {
     }, false);
 }
 
-Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(MintUI);
 
-const router = new VueRouter({
-	routes,
-	mode: 'history'
-});
-
 /* eslint-disable no-new */
 new Vue({
+	el: '#app',
 	router,
+	template: '<App/>',
+  	components: { App },
 	store,
-}).$mount('#app')
+})

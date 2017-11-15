@@ -1,7 +1,7 @@
 <template>
-	<div>
-		<router-view/>
-		<tube-icon/>
+	<div id="app">
+		<router-view></router-view>
+		<tube-icon></tube-icon>
 	</div>
 </template>
 
