@@ -19,6 +19,8 @@ npm run build --report
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+```
+
 <img src="https://github.com/flywind/vue2-app/demopic/1.jpg" width="377" height="669"/>
 
 <img src="https://github.com/flywind/vue2-app/demopic/2.jpg" width="377" height="669"/>
