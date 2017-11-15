@@ -21,8 +21,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ```
 
-<img src="https://github.com/flywind/vue2-app/demopic/1.jpg" width="377" height="669"/>
+<img src="https://github.com/flywind/vue2-app/blob/master/demopic/1.jpg" width="377" height="669"/>
 
-<img src="https://github.com/flywind/vue2-app/demopic/2.jpg" width="377" height="669"/>
+<img src="https://github.com/flywind/vue2-app/blob/master/demopic/2.jpg" width="377" height="669"/>
 
-<img src="https://github.com/flywind/vue2-app/demopic/3.jpg" width="377" height="669"/>
+<img src="https://github.com/flywind/vue2-app/blob/master/demopic/3.jpg" width="377" height="669"/>
