@@ -10,6 +10,7 @@ import library from '@/page/library/library'
 import libhistory from '@/page/library/children/history'
 import myvideos from '@/page/library/children/myvideos'
 import watchlater from '@/page/library/children/watchlater'
+import signin from '@/page/signin'
 
 Vue.use(Router)
 
@@ -73,6 +74,12 @@ export default new Router({
 	    path: '/library/myvideos',
 	    name: 'myvideos',
 	    component: myvideos
+    },
+    //登录
+    {
+	    path: '/signin',
+	    name: 'signin',
+	    component: signin
     }
   ]
 })

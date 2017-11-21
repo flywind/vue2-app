@@ -1,50 +1,6 @@
 <template>
 	<div class="container">
-		<tb-header fixed logo user>
-			<svg class="user" slot="right" @click="profile = !profile">
-				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
-			</svg>
-		</tb-header>
-		<mt-popup class="profile-popup" v-model="profile" position="bottom" :modal="false">
-			<header>
-				<svg class="close" @click="profile = false">
-					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
-				</svg>
-				<h1>Account</h1>
-			</header>
-			<section class="content">
-				<div>
-					<svg class="account">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#account"></use>
-					</svg>
-					<span>My channel</span>
-				</div>
-				<div>
-					<svg class="switchaccount">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#switchaccount"></use>
-					</svg>
-					<span>Switch account</span>
-				</div>
-				<div>
-					<svg class="settings">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#settings"></use>
-					</svg>
-					<span>Settings</span>
-				</div>
-				<div>
-					<svg class="lock">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use>
-					</svg>
-					<span>Terms & privacy policy</span>
-				</div>
-				<div>
-					<svg class="help">
-						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#help"></use>
-					</svg>
-					<span>Help & feedback</span>
-				</div>
-			</section>
-		</mt-popup>
+		<tb-header fixed logo user></tb-header>
 		<section class="main" ref="wrapper" :style="{height:wrapperHeight + 'px'}" v-if="list.length">
 			<ul class="video-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="50">
 				<li v-for="(item,index) in list" :key="index">
@@ -101,12 +57,15 @@
 		},
 		components:{
 			tbHeader,
-			tbTabbar
+			tbTabbar,
 		},
 		computed:{
 			
 		},
 		methods:{
+			onShowprofile(){
+				this.profile = !this.profile
+			},
 			subTitle(title){
 				if(title.length > 48){
 					return title.substring(0,48) + '...';

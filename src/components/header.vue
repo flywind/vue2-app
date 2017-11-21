@@ -21,8 +21,100 @@
 				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
 			</svg>
 			<slot name="right"></slot>
+			<span v-if="user">
+				<svg class="user" @click="visiable = !visiable" v-if="userinfo">
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user"></use>
+				</svg>
+				<svg class="user" @click="visiable = !visiable" v-else>
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#user2"></use>
+				</svg>
+			</span>
 		</div>
+		<mt-popup class="profile-popup" v-model="visiable" position="bottom" :modal="false" v-if="userinfo">
+			<header>
+				<svg class="close" @click="visiable = false">
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+				</svg>
+				<h1>Account</h1>
+			</header>
+			<section class="content">
+				<div>
+					<svg class="account">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#account"></use>
+					</svg>
+					<span>My channel</span>
+				</div>
+				<div class="border">
+					<svg class="switchaccount">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#switchaccount"></use>
+					</svg>
+					<span>Switch account</span>
+				</div>
+				<div>
+					<svg class="settings">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#settings"></use>
+					</svg>
+					<span>Settings</span>
+				</div>
+				<div>
+					<svg class="lock">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use>
+					</svg>
+					<span>Terms & privacy policy</span>
+				</div>
+				<div>
+					<svg class="help">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#help"></use>
+					</svg>
+					<span>Help & feedback</span>
+				</div>
+			</section>
+		</mt-popup>
+		<mt-popup class="profile-popup" v-model="visiable" position="bottom" :modal="false" v-else>
+			<header>
+				<svg class="close" @click="visiable = false">
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
+				</svg>
+				<h1>Account</h1>
+			</header>
+			<section class="signin">
+				<svg class="settings">
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#door"></use>
+				</svg>
+				<p>Sign in now to upload, save, and comment on videos</p>
+				<router-link to="/signin">
+					<mt-button type="primary">SIGN IN</mt-button>
+				</router-link>
+			</section>
+			<section class="content">
+				<div>
+					<svg class="settings">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#activity"></use>
+					</svg>
+					<span>Notifications</span>
+				</div>
+				<div>
+					<svg class="settings">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#settings"></use>
+					</svg>
+					<span>Settings</span>
+				</div>
+				<div>
+					<svg class="lock">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#lock"></use>
+					</svg>
+					<span>Terms & privacy policy</span>
+				</div>
+				<div>
+					<svg class="help">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#help"></use>
+					</svg>
+					<span>Help & feedback</span>
+				</div>
+			</section>
+		</mt-popup>
 	</header>
+	
 </template>
 
 <script>
@@ -32,15 +124,24 @@ export default {
   	fixed: Boolean,
   	goback: Boolean,
   	logo: Boolean,
-  	user:Boolean,
+  	user: Boolean,
   	title: String,
   	titlePosition: String
+  },
+  data(){
+  	return{
+  		visiable: false,
+  		userinfo: false,
+  	}
   }
 }
 </script>
 
 <style lang="scss">
 	@import "../assets/var";
+	.mint-button--primary{
+		background-color: #5383ec;
+	}
 	.tube-header{
 		height: $header-height;
 		border-bottom: .025rem solid $border-in-color;
@@ -85,6 +186,11 @@ export default {
 			svg.more{
 				margin-right: .2rem;
 			}
+			svg.refresh{
+				margin-right: .4rem;
+				width: .85rem;
+				height: .85rem;
+			}
 			svg.search{
 				width: .85rem;
 				height: .85rem;
@@ -106,7 +212,7 @@ export default {
 		left: 0;
 		right: 0;
 		top: 0;
-		z-index: $z-index-normal;
+		z-index: 2;
 	}
 	.profile-popup{
 		width: 100%;
@@ -154,8 +260,29 @@ export default {
 					font-size: .6rem;
 				}
 			}
-			div:nth-of-type(2){
-				border-bottom: 0.025rem solid #ebebeb;
+			div.border{
+				border-bottom:0.025rem solid $border-in-color;
+			}
+		}
+		.signin{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			border-bottom:0.025rem solid $border-in-color;
+			svg{
+				width:7rem;
+				height:7rem;
+				margin-top: .8rem;
+			}
+			p{
+				color:$color-subfont;
+				font-size: .6rem;
+				transform: scale(.85);
+				margin-top: 1.6rem;
+			}
+			button{
+				margin-top: .8rem;
+				margin-bottom: .8rem;
 			}
 		}
 	}
