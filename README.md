@@ -2,7 +2,7 @@
 
 ## Use vue2 + vuex + vue-router + vue-resource build YouTube UI. Maybe it will help you understand about how the vue2 work.
 
-[view demo](http://120.78.220.62/youtube/index.html)
+[view demo](http://youtube.uxdpen.com)
 
 # install dependencies
 npm install
